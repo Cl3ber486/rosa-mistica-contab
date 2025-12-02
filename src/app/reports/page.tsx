@@ -15,8 +15,10 @@ export default function ReportsPage() {
     const [incomeData, setIncomeData] = useState<ChartData[]>([])
     const [expenseData, setExpenseData] = useState<ChartData[]>([])
     const [loading, setLoading] = useState(true)
+    const [mounted, setMounted] = useState(false)
 
     useEffect(() => {
+        setMounted(true)
         fetchData()
     }, [])
 
@@ -52,6 +54,8 @@ export default function ReportsPage() {
             setLoading(false)
         }
     }
+
+    if (!mounted) return null;
 
     return (
         <div className="space-y-8">
