@@ -51,13 +51,29 @@ export default function MembersPage() {
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault()
+        // Remove empty strings for optional fields so Supabase receives nulls
+        const cleanedData = {
+            full_name: formData.full_name,
+            birth_date: formData.birth_date || null,
+            cpf: formData.cpf,
+            rg: formData.rg || null,
+            address: formData.address || null,
+            phone: formData.phone || null,
+            email: formData.email || null,
+            is_tither: formData.is_tither,
+            tither_code: formData.is_tither ? (formData.tither_code || null) : null,
+        }
         try {
-            const { error } = await supabase
+            const { error, data } = await supabase
                 .from('members')
-                .insert([formData])
+                .insert([cleanedData])
 
-            if (error) throw error
+            if (error) {
+                console.error('Supabase insert error:', error)
+                throw error
+            }
 
+            console.log('Member inserted:', data)
             setShowForm(false)
             setFormData({
                 full_name: "",
@@ -72,6 +88,7 @@ export default function MembersPage() {
             })
             fetchMembers()
         } catch (error) {
+            console.error('Erro ao salvar membro:', error)
             alert('Erro ao salvar membro: ' + JSON.stringify(error))
         }
     }
