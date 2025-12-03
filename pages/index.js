@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { useState, useEffect } => 'react';
+import { useState, useEffect } from 'react';
 
 // Seus detalhes de conexão (que o Vercel já injetou)
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
