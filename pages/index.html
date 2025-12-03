@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>RM Contab</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+
+<body>
+    <h1>Status da Aplicação</h1>
+    <h2 id="msg">Carregando...</h2>
+
+    <script>
+        // Pegando variáveis do Vercel
+        const supabaseUrl = window._env_.NEXT_PUBLIC_SUPABASE_URL;
+        const supabaseAnonKey = window._env_.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+        const supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
+
+        async function loadStatus() {
+            const { data, error } = await supabase
+                .from("status")
+                .select("mensagem")
+                .single();
+
+            const el = document.getElementById("msg");
+
+            if (error) {
+                el.textContent = "Erro ao conectar!";
+                console.error(error);
+            } else {
+                el.textContent = data.mensagem;
+            }
+        }
+
+        loadStatus();
+    </script>
+</body>
+
+</html>
