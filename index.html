@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>RM Contab</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+    <h1>Status da Aplicação</h1>
+    <p>Teste de Integração Supabase/Vercel:</p>
+    <h2 id="msg">Carregando...</h2>
+
+    <script>
+        // IMPORTANTE: Substitua essas URLs pelas suas credenciais do Supabase
+        // Você pode encontrá-las em: https://app.supabase.com/project/_/settings/api
+        const supabaseUrl = 'https://ayqxtvcbdbqeqxhmxpee.supabase.co';
+        const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF5cXh0dmNiZGJxZXF4aG14cGVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ3MTU3NjcsImV4cCI6MjA4MDI5MTc2N30.RBCUCFR_j81oclRGJNMYph3yTRMLheBxg_fvDlqwoMw';
+
+        // Verificar se as credenciais foram configuradas
+        if (supabaseUrl.includes('https://ayqxtvcbdbqeqxhmxpee.supabase.co') || supabaseAnonKey.includes('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF5cXh0dmNiZGJxZXF4aG14cGVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ3MTU3NjcsImV4cCI6MjA4MDI5MTc2N30.RBCUCFR_j81oclRGJNMYph3yTRMLheBxg_fvDlqwoMw')) {
+            document.getElementById("msg").textContent = "⚠️ Configure suas credenciais do Supabase!";
+        } else {
+            const { createClient } = supabase;
+            const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+
+            async function loadStatus() {
+                const el = document.getElementById("msg");
+
+                try {
+                    const { data, error } = await supabaseClient
+                        .from("status")
+                        .select("mensagem")
+                        .single();
+
+                    if (error) {
+                        el.textContent = "❌ Erro ao conectar: " + error.message;
+                        console.error('Erro completo:', error);
+                    } else {
+                        el.textContent = "✅ " + data.mensagem;
+                    }
+                } catch (err) {
+                    el.textContent = "❌ Erro: " + err.message;
+                    console.error('Erro de execução:', err);
+                }
+            }
+
+            loadStatus();
+        }
+    </script>
+</body>
+
+</html>
