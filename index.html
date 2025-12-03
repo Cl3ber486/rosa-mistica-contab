@@ -19,7 +19,7 @@
         const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF5cXh0dmNiZGJxZXF4aG14cGVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ3MTU3NjcsImV4cCI6MjA4MDI5MTc2N30.RBCUCFR_j81oclRGJNMYph3yTRMLheBxg_fvDlqwoMw';
 
         // Verificar se as credenciais foram configuradas
-        if (supabaseUrl.includes('COLE_SUA') || supabaseAnonKey.includes('COLE_SUA')) {
+        if (supabaseUrl.includes('https://ayqxtvcbdbqeqxhmxpee.supabase.co') || supabaseAnonKey.includes('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF5cXh0dmNiZGJxZXF4aG14cGVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ3MTU3NjcsImV4cCI6MjA4MDI5MTc2N30.RBCUCFR_j81oclRGJNMYph3yTRMLheBxg_fvDlqwoMw')) {
             document.getElementById("msg").textContent = "⚠️ Configure suas credenciais do Supabase!";
         } else {
             const { createClient } = supabase;
